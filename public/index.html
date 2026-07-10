@@ -1,16 +1,20 @@
 <!DOCTYPE html>
 <html lang="id">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <meta name="description" content="Real-time ethnicity/race detection from face using AI camera analysis">
-    <title>FaceEthnic AI — Neobrutalism</title>
+    <title>FaceEthnic AI</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link
+        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
     <link rel="stylesheet" href="style.css">
 </head>
+
 <body>
     <div class="app-wrapper">
 
@@ -43,13 +47,15 @@
                         </div>
                         <div class="camera-viewport" id="cameraViewport">
                             <video id="video" autoplay playsinline></video>
-                            <img id="uploadedImage" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                            <img id="uploadedImage"
+                                style="display: none; width: 100%; height: 100%; object-fit: cover;">
                             <canvas id="overlay" class="overlay-canvas"></canvas>
 
 
                             <div class="face-guide" id="faceGuide">
                                 <svg viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <ellipse cx="100" cy="130" rx="75" ry="100" stroke="#000" stroke-width="4" stroke-dasharray="12 10"/>
+                                    <ellipse cx="100" cy="130" rx="75" ry="100" stroke="#000" stroke-width="4"
+                                        stroke-dasharray="12 10" />
                                 </svg>
                             </div>
 
@@ -89,7 +95,7 @@
                     <div class="card-header bg-cyan">
                         <strong>ANALYSIS_RESULT</strong>
                     </div>
-                    
+
 
                     <div class="results-placeholder" id="resultsPlaceholder">
                         <div class="placeholder-emoji">🤖</div>
@@ -127,8 +133,10 @@
                         <span>🕒</span>
                     </button>
 
-                    <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="handleFileUpload(event)">
-                    <button class="brutal-btn btn-square" id="uploadBtn" onclick="document.getElementById('fileInput').click()" title="Upload Photo">
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;"
+                        onchange="handleFileUpload(event)">
+                    <button class="brutal-btn btn-square" id="uploadBtn"
+                        onclick="document.getElementById('fileInput').click()" title="Upload Photo">
                         <span>📁</span>
                     </button>
 
@@ -138,7 +146,8 @@
                         </div>
                     </button>
 
-                    <button class="brutal-btn btn-square btn-action" id="analyzeBtn" onclick="captureAndAnalyze()" disabled title="Analyze">
+                    <button class="brutal-btn btn-square btn-action" id="analyzeBtn" onclick="captureAndAnalyze()"
+                        disabled title="Analyze">
                         <span>⚡</span>
                     </button>
                 </div>
@@ -172,4 +181,5 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
     <script src="app.js"></script>
 </body>
+
 </html>
