@@ -1,24 +1,21 @@
-/* ============================================
-   FaceEthnic AI — Neobrutalism Design
-   Palette: Cyan/Teal (#e0fbfc, #c2dfe3, #9db4c0, #5c6b73)
-   ============================================ */
+
 
 :root {
-    /* Color Palette from Image */
+
     --c-bg: #e0fbfc;        /* Very light cyan */
     --c-cyan-light: #c2dfe3;
     --c-cyan: #9db4c0;      
     --c-teal: #5c6b73;      
     --c-teal-dark: #2b3a42;
 
-    /* Neobrutalism Basics */
+
     --black: #0f172a;
     --white: #ffffff;
     --border-w: 3px;
     --border-radius: 8px;
     --shadow-size: 5px;
     
-    /* Functional Colors */
+
     --accent: #5c6b73;
     --red: #ff5252;
     --green: #4ade80;
@@ -28,7 +25,7 @@
     --font-mono: 'JetBrains Mono', monospace;
 }
 
-/* === Reset === */
+
 *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
 html { font-size: 16px; }
 body {
@@ -44,7 +41,7 @@ body {
     overflow-x: hidden;
 }
 
-/* === App Container === */
+
 .app-wrapper { position: relative; min-height: 100vh; }
 .app-container {
     max-width: 480px;
@@ -56,7 +53,7 @@ body {
     padding-bottom: 120px;
 }
 
-/* === Neobrutalism Base Styles === */
+
 .brutal-card {
     background: var(--white);
     border: var(--border-w) solid var(--black);
@@ -121,7 +118,7 @@ body {
     box-shadow: 2px 2px 0 var(--black);
 }
 
-/* === Header === */
+
 .header {
     display: flex;
     align-items: center;
@@ -161,7 +158,7 @@ body {
 .status-dot.active { background: var(--green); }
 .status-dot.analyzing { background: var(--yellow); }
 
-/* === Main === */
+
 .main-body {
     display: flex;
     flex-direction: column;
@@ -173,7 +170,7 @@ body {
     gap: 20px;
 }
 
-/* === Camera Area === */
+
 .camera-viewport {
     position: relative;
     width: 100%;
@@ -225,7 +222,7 @@ body {
 .no-camera-icon { font-size: 3rem; filter: drop-shadow(3px 3px 0 var(--black)); }
 .no-camera p { font-weight: 700; font-family: var(--font-mono); }
 
-/* === Results Section === */
+
 .results-placeholder {
     padding: 40px 20px;
     text-align: center;
@@ -243,7 +240,7 @@ body {
 }
 .results-header h2 { font-size: 1.1rem; font-weight: 700; text-transform: uppercase; }
 
-/* === Ethnicity Items === */
+
 .ethnicity-items { display: flex; flex-direction: column; gap: 12px; }
 
 .eth-item {
@@ -300,7 +297,7 @@ body {
 .confidence-value.medium { background: var(--yellow); }
 .confidence-value.low { background: var(--red); }
 
-/* === Bottom Action Bar === */
+
 .action-bar-wrapper {
     position: fixed; bottom: 20px;
     left: 50%; transform: translateX(-50%);
@@ -330,7 +327,7 @@ body {
 .btn-camera.recording { background: var(--red); }
 .btn-camera.recording span { filter: drop-shadow(0 0 0 transparent); }
 
-/* === Auto Bar === */
+
 .auto-bar { padding: 16px; display: flex; flex-direction: column; gap: 16px; }
 .auto-toggle-row { display: flex; align-items: center; justify-content: space-between; }
 .auto-label { font-weight: 700; text-transform: uppercase; }
@@ -367,7 +364,7 @@ body {
     cursor: pointer;
 }
 
-/* === History Modal === */
+
 .history-modal {
     position: fixed; inset: 0; z-index: 100;
     display: flex; align-items: flex-end; justify-content: center;
@@ -418,7 +415,7 @@ body {
 .history-entry-pct { font-family: var(--font-mono); font-size: 1.1rem; font-weight: 700; }
 .history-entry-time { font-family: var(--font-mono); font-size: 0.7rem; }
 
-/* === Toast === */
+
 .toast-container {
     position: fixed; top: 20px; left: 50%; transform: translateX(-50%);
     z-index: 200; display: flex; flex-direction: column; gap: 10px;
@@ -438,7 +435,7 @@ body {
 .toast-icon { font-size: 1.2rem; filter: drop-shadow(1px 1px 0 var(--black)); }
 @keyframes slideIn { from { transform: translateY(-30px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
 
-/* === Cropper.js Overrides === */
+
 .cropper-view-box,
 .cropper-face {
     border-radius: 4px;
@@ -451,9 +448,7 @@ body {
     outline-color: var(--black) !important;
 }
 
-/* ============================
-   RESPONSIVE: Desktop Layout
-   ============================ */
+
 @media (min-width: 768px) {
     .app-container {
         max-width: 900px;

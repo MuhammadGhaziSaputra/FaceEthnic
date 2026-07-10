@@ -3,14 +3,14 @@ const path = require('path');
 const app = express();
 const PORT = 3000;
 
-// Increase payload limit for base64 images
+
 app.use(express.json({ limit: '50mb' }));
 app.use(express.urlencoded({ extended: true, limit: '50mb' }));
 
-// Serve static files
+
 app.use(express.static(path.join(__dirname, 'public')));
 
-// Proxy endpoint to Apilogy API (avoids CORS issues)
+
 app.post('/api/analyze', async (req, res) => {
     try {
         const { base64Image } = req.body;
@@ -59,7 +59,7 @@ Rules:
             stream: false
         };
 
-        // Retry logic for billing/subscription errors
+
         let rawText, response;
         const maxRetries = 3;
 
@@ -80,12 +80,12 @@ Rules:
             rawText = await response.text();
             console.log(`[Attempt ${attempt}] Status: ${response.status} | ${rawText.substring(0, 120)}`);
 
-            // If success or non-retryable error, break
+
             if (response.status === 200 || (!rawText.includes('charge to billing failed') && !rawText.includes('subscription is not found'))) {
                 break;
             }
 
-            // Wait before retry
+
             if (attempt < maxRetries) {
                 await new Promise(r => setTimeout(r, 1000));
             }
@@ -98,7 +98,7 @@ Rules:
             data = { raw: rawText, parseError: true };
         }
 
-        // Forward billing errors as user-friendly messages
+
         if (data.message && data.message.includes('charge to billing')) {
             return res.status(402).json({ error: 'API billing error. Please check your Apilogy subscription.' });
         }

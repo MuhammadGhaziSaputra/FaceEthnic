@@ -1,11 +1,8 @@
-/* ============================================
-   FaceEthnic AI — App Logic v2
-   Country-specific ethnicities with flags
-   ============================================ */
 
-// --- Country Flag & Color Map ---
+
+
 const countryData = {
-    // East/Southeast Asia
+
     'Indonesian':   { flag: '🇮🇩', color: '#ef4444' },
     'Japanese':     { flag: '🇯🇵', color: '#f97316' },
     'Korean':       { flag: '🇰🇷', color: '#3b82f6' },
@@ -21,14 +18,14 @@ const countryData = {
     'Mongolian':    { flag: '🇲🇳', color: '#3b82f6' },
     'Taiwanese':    { flag: '🇹🇼', color: '#3b82f6' },
 
-    // South Asia
+
     'Indian':       { flag: '🇮🇳', color: '#f97316' },
     'Pakistani':    { flag: '🇵🇰', color: '#22c55e' },
     'Bangladeshi':  { flag: '🇧🇩', color: '#22c55e' },
     'Sri Lankan':   { flag: '🇱🇰', color: '#eab308' },
     'Nepali':       { flag: '🇳🇵', color: '#ef4444' },
 
-    // Middle East
+
     'Arab':         { flag: '🇸🇦', color: '#22c55e' },
     'Turkish':      { flag: '🇹🇷', color: '#ef4444' },
     'Iranian':      { flag: '🇮🇷', color: '#22c55e' },
@@ -38,7 +35,7 @@ const countryData = {
     'Israeli':      { flag: '🇮🇱', color: '#3b82f6' },
     'Emirati':      { flag: '🇦🇪', color: '#22c55e' },
 
-    // Africa
+
     'Nigerian':     { flag: '🇳🇬', color: '#22c55e' },
     'South African':{ flag: '🇿🇦', color: '#22c55e' },
     'Ethiopian':    { flag: '🇪🇹', color: '#22c55e' },
@@ -52,7 +49,7 @@ const countryData = {
     'Cameroonian':  { flag: '🇨🇲', color: '#22c55e' },
     'African':      { flag: '🌍', color: '#22c55e' },
 
-    // Europe
+
     'British':      { flag: '🇬🇧', color: '#3b82f6' },
     'German':       { flag: '🇩🇪', color: '#eab308' },
     'French':       { flag: '🇫🇷', color: '#3b82f6' },
@@ -70,7 +67,7 @@ const countryData = {
     'Ukrainian':    { flag: '🇺🇦', color: '#3b82f6' },
     'European':     { flag: '🇪🇺', color: '#3b82f6' },
 
-    // Americas
+
     'American':     { flag: '🇺🇸', color: '#3b82f6' },
     'Brazilian':    { flag: '🇧🇷', color: '#22c55e' },
     'Mexican':      { flag: '🇲🇽', color: '#22c55e' },
@@ -83,13 +80,13 @@ const countryData = {
     'Jamaican':     { flag: '🇯🇲', color: '#22c55e' },
     'Latin American':{ flag: '🌎', color: '#22c55e' },
 
-    // Oceania
+
     'Australian':   { flag: '🇦🇺', color: '#3b82f6' },
     'New Zealander': { flag: '🇳🇿', color: '#3b82f6' },
     'Fijian':       { flag: '🇫🇯', color: '#3b82f6' },
     'Pacific Islander': { flag: '🌊', color: '#06b6d4' },
 
-    // Fallback regions (in case AI still returns these)
+
     'East Asian':       { flag: '🌏', color: '#8b5cf6' },
     'Southeast Asian':  { flag: '🌏', color: '#22c55e' },
     'South Asian':      { flag: '🌏', color: '#f97316' },
@@ -97,18 +94,18 @@ const countryData = {
 };
 
 function getCountryInfo(name) {
-    // Try exact match
+
     if (countryData[name]) return countryData[name];
-    // Try case-insensitive
+
     const lower = name.toLowerCase();
     for (const [key, val] of Object.entries(countryData)) {
         if (key.toLowerCase() === lower) return val;
     }
-    // Default
+
     return { flag: '🏳️', color: '#6b7280' };
 }
 
-// --- State ---
+
 let video = null;
 let stream = null;
 let isAutoAnalyzing = false;
@@ -119,7 +116,7 @@ let history = [];
 let uploadedImageBase64 = null;
 let cropper = null;
 
-// --- Initialize ---
+
 document.addEventListener('DOMContentLoaded', () => {
     video = document.getElementById('video');
 
@@ -130,7 +127,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 });
 
-// --- Camera Toggle ---
+
 async function toggleCamera() {
     const cameraBtn = document.getElementById('cameraBtn');
     const analyzeBtn = document.getElementById('analyzeBtn');
@@ -146,7 +143,7 @@ async function toggleCamera() {
         video.srcObject = null;
         cameraBtn.classList.remove('recording');
         
-        // If no uploaded image, disable analyze
+
         if (!uploadedImageBase64) {
             analyzeBtn.disabled = true;
             statusDot.className = 'status-dot';
@@ -174,7 +171,6 @@ async function toggleCamera() {
             video: { facingMode: 'user', width: { ideal: 640 }, height: { ideal: 480 } }
         });
         
-        // Clear uploaded image if camera starts
         clearUploadedImage();
 
         video.srcObject = stream;
@@ -198,7 +194,7 @@ async function toggleCamera() {
     }
 }
 
-// --- Auto Analyze ---
+
 function toggleAutoAnalyze() {
     const toggle = document.getElementById('autoToggle');
     const scanOverlay = document.getElementById('scanOverlay');
@@ -230,7 +226,7 @@ function toggleAutoAnalyze() {
     }
 }
 
-// --- Handle File Upload ---
+
 function handleFileUpload(event) {
     const file = event.target.files[0];
     if (!file) return;
@@ -240,24 +236,24 @@ function handleFileUpload(event) {
         const imgUrl = e.target.result;
         uploadedImageBase64 = imgUrl.split(',')[1];
         
-        // Display image
+
         const imgElement = document.getElementById('uploadedImage');
         imgElement.src = imgUrl;
         imgElement.style.display = 'block';
         
-        // Hide video and no camera state
+
         document.getElementById('video').style.display = 'none';
         document.getElementById('noCameraState').classList.add('hidden');
-        document.getElementById('faceGuide').style.display = 'none'; // Hide guide for cropper
+        document.getElementById('faceGuide').style.display = 'none';
         
-        // Initialize Cropper.js
+
         if (cropper) cropper.destroy();
         cropper = new Cropper(imgElement, {
             aspectRatio: 3 / 4,
             viewMode: 1,
-            dragMode: 'move', // Allow panning the image
-            autoCropArea: 1, // Full size crop box
-            cropBoxMovable: false, // Fix crop box in center
+            dragMode: 'move',
+            autoCropArea: 1,
+            cropBoxMovable: false,
             cropBoxResizable: false,
             guides: true,
             center: true,
@@ -266,12 +262,12 @@ function handleFileUpload(event) {
             toggleDragModeOnDblclick: false
         });
         
-        // Update UI state
+
         document.getElementById('analyzeBtn').disabled = false;
         document.getElementById('statusDot').className = 'status-dot active';
         document.getElementById('statusText').textContent = 'Photo Ready';
         
-        // Stop camera if running
+
         if (stream) toggleCamera();
         
         showToast('Photo uploaded!', 'success');
@@ -293,7 +289,7 @@ function clearUploadedImage() {
     document.getElementById('fileInput').value = '';
 }
 
-// --- Capture & Analyze ---
+
 async function captureAndAnalyze() {
     if ((!stream && !uploadedImageBase64) || isAnalyzing) return;
     isAnalyzing = true;
@@ -307,7 +303,7 @@ async function captureAndAnalyze() {
         let base64 = uploadedImageBase64;
         
         if (cropper) {
-            // Get cropped image area
+
             const canvas = cropper.getCroppedCanvas({
                 width: 480,
                 height: 640
@@ -348,7 +344,7 @@ async function captureAndAnalyze() {
     }
 }
 
-// --- Process API Response ---
+
 function processApiResponse(data) {
     try {
         let content = '';
@@ -400,7 +396,7 @@ function processApiResponse(data) {
     }
 }
 
-// --- Update Results ---
+
 function updateResults(result) {
     const placeholder = document.getElementById('resultsPlaceholder');
     const list = document.getElementById('resultsList');
@@ -435,7 +431,7 @@ function updateResults(result) {
         `;
         items.appendChild(item);
 
-        // Animate bar
+
         requestAnimationFrame(() => {
             setTimeout(() => {
                 item.querySelector('.eth-bar-fill').style.width = eth.percentage + '%';
@@ -446,12 +442,12 @@ function updateResults(result) {
     if (result.confidence) {
         confRow.style.display = 'flex';
         confVal.textContent = result.confidence.toUpperCase();
-        // Set neobrutalism confidence colors based on level
+
         confVal.className = 'confidence-value brutal-badge ' + result.confidence.toLowerCase();
     }
 }
 
-// --- History ---
+
 function addToHistory(result) {
     const ethnicities = (result.ethnicities || []).sort((a, b) => b.percentage - a.percentage);
     const dominant = ethnicities[0] || { name: 'Unknown', percentage: 0 };
@@ -495,7 +491,7 @@ function toggleHistory() {
     document.getElementById('historyModal').classList.toggle('open');
 }
 
-// --- Toast ---
+
 function showToast(message, type = 'info') {
     const container = document.getElementById('toastContainer');
     const toast = document.createElement('div');
