@@ -1,0 +1,175 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="description" content="Real-time ethnicity/race detection from face using AI camera analysis">
+    <title>FaceEthnic AI — Neobrutalism</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="app-wrapper">
+        <!-- App Container -->
+        <div class="app-container">
+            <!-- Header -->
+            <header class="header">
+                <div class="header-left">
+                    <div class="logo-icon">🌍</div>
+                    <div>
+                        <h1 class="logo-title">FaceEthnic.AI</h1>
+                    </div>
+                </div>
+                <div class="header-right">
+                    <div class="status-badge" id="statusBadge">
+                        <div class="status-dot" id="statusDot"></div>
+                        <span id="statusText">Offline</span>
+                    </div>
+                </div>
+            </header>
+
+            <!-- Main Body -->
+            <main class="main-body">
+                <!-- Left Column: Camera + Controls -->
+                <div class="camera-column">
+                    <!-- Camera Card -->
+                    <div class="brutal-card camera-card">
+                        <div class="card-header">
+                            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                            <strong>CAMERA_VIEW</strong>
+                        </div>
+                        <div class="camera-viewport" id="cameraViewport">
+                            <video id="video" autoplay playsinline></video>
+                            <img id="uploadedImage" style="display: none; width: 100%; height: 100%; object-fit: cover;">
+                            <canvas id="overlay" class="overlay-canvas"></canvas>
+
+                            <!-- Face Guide Overlay -->
+                            <div class="face-guide" id="faceGuide">
+                                <svg viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                    <ellipse cx="100" cy="130" rx="75" ry="100" stroke="#000" stroke-width="4" stroke-dasharray="12 10"/>
+                                </svg>
+                            </div>
+
+                            <!-- Scanning Overlay -->
+                            <div class="scan-overlay" id="scanOverlay">
+                                <div class="scan-beam"></div>
+                            </div>
+
+                            <!-- No Camera State -->
+                            <div class="no-camera" id="noCameraState">
+                                <div class="no-camera-icon">📷</div>
+                                <p>Akses kamera atau upload foto</p>
+                            </div>
+                        </div>
+                        <canvas id="captureCanvas" style="display:none;"></canvas>
+                    </div>
+
+                    <!-- Auto-analyze Toggle -->
+                    <div class="brutal-card auto-bar" id="autoBar" style="display: none;">
+                        <div class="auto-toggle-row">
+                            <label class="auto-label">Auto Analyze Mode</label>
+                            <label class="toggle-switch">
+                                <input type="checkbox" id="autoToggle" onchange="toggleAutoAnalyze()">
+                                <span class="toggle-slider"></span>
+                            </label>
+                        </div>
+                        <div class="interval-row">
+                            <span class="interval-label">Interval</span>
+                            <input type="range" id="intervalSlider" min="2" max="10" value="3" class="brutal-slider">
+                            <span class="interval-value brutal-badge" id="intervalValue">3s</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Results -->
+                <div class="brutal-card results-section" id="resultsSection">
+                    <div class="card-header bg-cyan">
+                        <strong>ANALYSIS_RESULT</strong>
+                    </div>
+                    
+                    <!-- Result Placeholder -->
+                    <div class="results-placeholder" id="resultsPlaceholder">
+                        <div class="placeholder-emoji">🤖</div>
+                        <p>Nyalakan kamera lalu klik tombol petir untuk memulai pemindaian etnis!</p>
+                    </div>
+
+                    <!-- Results List (hidden until data comes) -->
+                    <div class="results-list" id="resultsList" style="display: none;">
+                        <!-- Result Header -->
+                        <div class="results-header">
+                            <h2>Detected Origins</h2>
+                            <div class="brutal-badge scan-counter">
+                                Scan #<span id="scanCount">0</span>
+                            </div>
+                        </div>
+
+                        <!-- Ethnicity Items -->
+                        <div class="ethnicity-items" id="ethnicityItems">
+                            <!-- Items generated by JS -->
+                        </div>
+
+                        <!-- Confidence -->
+                        <div class="confidence-row" id="confidenceRow" style="display: none;">
+                            <span class="confidence-label">Confidence Score:</span>
+                            <span class="confidence-value brutal-badge" id="confidenceValue">—</span>
+                        </div>
+                    </div>
+                </div>
+            </main>
+
+            <!-- Bottom Action Bar -->
+            <div class="action-bar-wrapper">
+                <div class="action-bar brutal-card">
+                    <button class="brutal-btn btn-square" id="historyBtn" onclick="toggleHistory()" title="History">
+                        <span>🕒</span>
+                    </button>
+
+                    <input type="file" id="fileInput" accept="image/*" style="display: none;" onchange="handleFileUpload(event)">
+                    <button class="brutal-btn btn-square" id="uploadBtn" onclick="document.getElementById('fileInput').click()" title="Upload Photo">
+                        <span>📁</span>
+                    </button>
+
+                    <button class="brutal-btn btn-camera" id="cameraBtn" onclick="toggleCamera()">
+                        <div class="camera-btn-inner" id="cameraBtnInner">
+                            <span>📷</span>
+                        </div>
+                    </button>
+
+                    <button class="brutal-btn btn-square btn-action" id="analyzeBtn" onclick="captureAndAnalyze()" disabled title="Analyze">
+                        <span>⚡</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- History Modal -->
+        <div class="history-modal" id="historyModal">
+            <div class="history-panel brutal-card">
+                <div class="history-header card-header bg-teal">
+                    <h3>SCAN_HISTORY</h3>
+                    <button class="history-close brutal-btn btn-small" onclick="toggleHistory()">
+                        ✖
+                    </button>
+                </div>
+                <div class="history-body" id="historyBody">
+                    <div class="history-empty">
+                        <p>Belum ada history pemindaian.</p>
+                    </div>
+                </div>
+                <div class="history-footer">
+                    <button class="brutal-btn btn-full btn-red" onclick="clearHistory()">Clear History</button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Toast -->
+        <div class="toast-container" id="toastContainer"></div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

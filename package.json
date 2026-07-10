@@ -1,0 +1,14 @@
+{
+  "name": "race-detector",
+  "version": "1.0.0",
+  "description": "Real-time race/ethnicity detection from face using camera and Apilogy Large Multimodal Model",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "cors": "^2.8.5"
+  }
+}
