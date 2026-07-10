@@ -45,9 +45,9 @@ Otherwise, you MUST respond ONLY in this exact JSON format, no other text:
 
 Rules:
 - Use specific country demonyms like "Indonesian", "Japanese", "Korean", "Chinese", "Indian", "Nigerian", "South African", "Brazilian", "Mexican", "American", "British", "German", "French", "Italian", "Thai", "Vietnamese", "Filipino", "Turkish", "Arab", "Ethiopian", etc.
-- All percentages must sum to 100
-- Include 2-5 ethnicities maximum, only those with percentage > 0
-- Be as accurate as possible based on facial features
+- All percentages MUST sum to exactly 100. Feel free to use decimal numbers (e.g. 12.5, 0.5) for extreme precision.
+- You MUST include 4 to 8 different ethnicities. Break down the facial features rigorously to detect even the slightest trace (e.g. 1% or 2%) of other ancestries.
+- Be extremely analytical and strict. Do not just output 1 or 2 countries, always provide a detailed mix.
 - Respond ONLY with the JSON, no explanation`
                         },
                         {

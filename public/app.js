@@ -378,15 +378,7 @@ async function captureAndAnalyze() {
     } catch (error) {
         console.error('Analysis error:', error);
         if (error.message === 'no_face_found' || error.message.includes('no_face_found') || error.message.includes('No ethnicity data') || error.message === 'Empty response from server.') {
-            Swal.fire({
-                icon: 'warning',
-                title: 'Wajah Tidak Ditemukan',
-                text: 'Pastikan wajah terlihat jelas di kamera atau pada foto yang diunggah.',
-                confirmButtonText: 'Coba Lagi',
-                confirmButtonColor: '#3b82f6',
-                background: '#222',
-                color: '#fff'
-            });
+            showErrorModal();
         } else {
             showToast('Analysis failed: ' + error.message, 'error');
         }
@@ -571,6 +563,14 @@ function clearHistory() {
 
 function toggleHistory() {
     document.getElementById('historyModal').classList.toggle('open');
+}
+
+function showErrorModal() {
+    document.getElementById('errorModal').classList.add('open');
+}
+
+function closeErrorModal() {
+    document.getElementById('errorModal').classList.remove('open');
 }
 
 

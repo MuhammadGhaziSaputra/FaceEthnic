@@ -400,6 +400,45 @@ body {
 }
 .history-modal.open .history-panel { transform: translateY(0); }
 
+.error-modal {
+    position: fixed; inset: 0; z-index: 150;
+    display: flex; align-items: center; justify-content: center;
+    padding: 16px;
+    opacity: 0; pointer-events: none; transition: opacity 0.2s;
+    background: rgba(15, 23, 42, 0.6);
+    backdrop-filter: blur(3px);
+}
+.error-modal.open { opacity: 1; pointer-events: all; }
+
+.error-panel {
+    width: 100%; max-width: 350px;
+    display: flex; flex-direction: column;
+    transform: scale(0.9);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+.error-modal.open .error-panel { transform: scale(1); }
+
+.error-body {
+    padding: 30px 20px;
+    text-align: center;
+    background: var(--c-bg);
+}
+.error-icon {
+    font-size: 3.5rem;
+    filter: drop-shadow(3px 3px 0 var(--black));
+    margin-bottom: 16px;
+}
+.error-title {
+    font-size: 1.2rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+}
+.error-desc {
+    font-weight: 500;
+    font-size: 0.95rem;
+}
+
 .btn-small { padding: 4px 10px; font-size: 1rem; }
 .btn-full { width: 100%; padding: 12px; text-transform: uppercase; }
 .btn-red { background: var(--red); color: var(--white); }
