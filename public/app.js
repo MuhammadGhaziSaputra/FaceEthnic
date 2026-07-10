@@ -312,11 +312,36 @@ async function captureAndAnalyze() {
             });
             base64 = canvas.toDataURL('image/jpeg', 0.8).split(',')[1];
         } else if (!base64 && stream) {
+            const natW = video.videoWidth;
+            const natH = video.videoHeight;
+            const viewport = document.getElementById('cameraViewport');
+            const vW = viewport.clientWidth;
+            const vH = viewport.clientHeight;
+
+            // object-fit: cover scale factor
+            const S = Math.max(vW / natW, vH / natH);
+
+            // Bounding box dari face-guide
+            const guideW = vW * 0.55;
+            const guideH = vH * 0.70;
+            const nW = guideW / S;
+            const nH = guideH / S;
+            const nX = (natW - nW) / 2;
+            const nY = (natH - nH) / 2;
+
             const canvas = document.getElementById('captureCanvas');
             const ctx = canvas.getContext('2d');
-            canvas.width = video.videoWidth;
-            canvas.height = video.videoHeight;
-            ctx.drawImage(video, 0, 0);
+            
+            canvas.width = nW;
+            canvas.height = nH;
+
+            // Mirror gambar karena video di-flip
+            ctx.translate(nW, 0);
+            ctx.scale(-1, 1);
+
+            // Crop dari video asli
+            ctx.drawImage(video, nX, nY, nW, nH, 0, 0, nW, nH);
+
             base64 = canvas.toDataURL('image/jpeg', 0.8).split(',')[1];
         }
 
