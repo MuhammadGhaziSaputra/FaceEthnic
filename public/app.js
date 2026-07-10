@@ -326,13 +326,33 @@ async function captureAndAnalyze() {
             body: JSON.stringify({ base64Image: base64 })
         });
 
-        const data = await response.json();
-        if (data.error) throw new Error(data.error);
+        const text = await response.text();
+        
+        if (!text || text.trim() === '') {
+            // Kemungkinan server timeout (504 dari Vercel) atau tidak ada koneksi backend
+            throw new Error(response.ok ? 'Empty response from server.' : 'no_face_found'); 
+            // Kita asumsikan timeout pada foto kosong berarti AI gagal mendeteksi wajah dalam waktu yang ditentukan
+        }
+
+        let data;
+        try {
+            data = JSON.parse(text);
+        } catch (e) {
+            if (text.includes('<html')) {
+                throw new Error('Pastikan Anda menjalankan server backend (node server.js), bukan sekadar Live Server.');
+            }
+            throw new Error(`Invalid response: ${text.substring(0, 50)}`);
+        }
+
+        if (data.error) {
+            const errMsg = typeof data.error === 'object' ? JSON.stringify(data.error) : data.error;
+            throw new Error(errMsg);
+        }
         processApiResponse(data);
 
     } catch (error) {
         console.error('Analysis error:', error);
-        if (error.message === 'no_face_found') {
+        if (error.message === 'no_face_found' || error.message.includes('no_face_found') || error.message.includes('No ethnicity data') || error.message === 'Empty response from server.') {
             Swal.fire({
                 icon: 'warning',
                 title: 'Wajah Tidak Ditemukan',
