@@ -29,7 +29,12 @@ app.post('/api/analyze', async (req, res) => {
                             type: "text",
                             text: `Analyze this person's face carefully and estimate their nationality/ethnic origin based on facial features. Provide specific COUNTRY-BASED ethnicities (e.g. "Indonesian", "Japanese", "Nigerian", "Brazilian", "Indian", "German", etc.) NOT broad regions.
 
-You MUST respond ONLY in this exact JSON format, no other text:
+If there is no human face clearly visible in the image, you MUST respond ONLY with this JSON:
+{
+  "error": "no_face_found"
+}
+
+Otherwise, you MUST respond ONLY in this exact JSON format, no other text:
 {
   "ethnicities": [
     {"name": "CountryName", "percentage": 0}

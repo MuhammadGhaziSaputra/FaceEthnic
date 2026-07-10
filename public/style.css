@@ -316,6 +316,23 @@ body {
 .btn-action:not(:disabled) { background: var(--yellow); }
 .btn-action:not(:disabled):hover { background: #fef08a; }
 
+.brutal-btn.loading {
+    background: var(--yellow) !important;
+    animation: brutalPulse 0.5s infinite alternate;
+    pointer-events: none;
+}
+.brutal-btn.loading span {
+    display: inline-block;
+    animation: spin 1s linear infinite;
+}
+@keyframes brutalPulse {
+    0% { transform: scale(1); box-shadow: 3px 3px 0 var(--black); }
+    100% { transform: scale(0.95); box-shadow: 1px 1px 0 var(--black); }
+}
+@keyframes spin {
+    100% { transform: rotate(360deg); }
+}
+
 .btn-camera {
     width: 76px; height: 76px;
     border-radius: 50%;

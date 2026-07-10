@@ -296,8 +296,10 @@ async function captureAndAnalyze() {
 
     const statusText = document.getElementById('statusText');
     const analyzeBtn = document.getElementById('analyzeBtn');
+    const scanOverlay = document.getElementById('scanOverlay');
     statusText.textContent = 'Analyzing...';
     analyzeBtn.classList.add('loading');
+    scanOverlay.classList.add('active');
 
     try {
         let base64 = uploadedImageBase64;
@@ -330,10 +332,26 @@ async function captureAndAnalyze() {
 
     } catch (error) {
         console.error('Analysis error:', error);
-        showToast('Analysis failed: ' + error.message, 'error');
+        if (error.message === 'no_face_found') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Wajah Tidak Ditemukan',
+                text: 'Pastikan wajah terlihat jelas di kamera atau pada foto yang diunggah.',
+                confirmButtonText: 'Coba Lagi',
+                confirmButtonColor: '#3b82f6',
+                background: '#222',
+                color: '#fff'
+            });
+        } else {
+            showToast('Analysis failed: ' + error.message, 'error');
+        }
     } finally {
         isAnalyzing = false;
         analyzeBtn.classList.remove('loading');
+        if (!isAutoAnalyzing) {
+            scanOverlay.classList.remove('active');
+        }
+
         if (isAutoAnalyzing) {
             statusText.textContent = 'Scanning...';
         } else if (uploadedImageBase64) {
@@ -372,12 +390,19 @@ function processApiResponse(data) {
             result = JSON.parse(content);
         } catch (e) {
             const jsonMatch = content.match(/\{[\s\S]*?"ethnicities"[\s\S]*\}/);
+            const errorMatch = content.match(/\{[\s\S]*?"error"[\s\S]*\}/);
             if (jsonMatch) {
                 try { result = JSON.parse(jsonMatch[0]); } catch (e2) {
                     const cleaned = jsonMatch[0].replace(/[\r\n]+/g, ' ').replace(/,\s*}/g, '}').replace(/,\s*]/g, ']');
                     result = JSON.parse(cleaned);
                 }
+            } else if (errorMatch) {
+                try { result = JSON.parse(errorMatch[0]); } catch (e3) {}
             }
+        }
+
+        if (result && result.error === 'no_face_found') {
+            throw new Error('no_face_found');
         }
 
         if (!result || !result.ethnicities || result.ethnicities.length === 0) {
@@ -392,7 +417,19 @@ function processApiResponse(data) {
 
     } catch (error) {
         console.error('Parse error:', error, 'Raw:', JSON.stringify(data));
-        showToast('Could not parse response. Try again.', 'error');
+        if (error.message === 'no_face_found' || error.message === 'No ethnicity data found') {
+            Swal.fire({
+                icon: 'warning',
+                title: 'Wajah Tidak Ditemukan',
+                text: 'Pastikan wajah terlihat jelas di kamera atau pada foto yang diunggah.',
+                confirmButtonText: 'Coba Lagi',
+                confirmButtonColor: '#3b82f6',
+                background: '#222',
+                color: '#fff'
+            });
+        } else {
+            showToast('Could not parse response. Try again.', 'error');
+        }
     }
 }
 
