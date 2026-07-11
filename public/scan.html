@@ -130,25 +130,35 @@
             <div class="action-bar-wrapper">
                 <div class="action-bar brutal-card">
                     <button class="brutal-btn btn-square" id="historyBtn" onclick="toggleHistory()" title="History">
-                        <span>🕒</span>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <polyline points="12 6 12 12 16 14"></polyline>
+                        </svg>
                     </button>
 
                     <input type="file" id="fileInput" accept="image/*" style="display: none;"
                         onchange="handleFileUpload(event)">
                     <button class="brutal-btn btn-square" id="uploadBtn"
                         onclick="document.getElementById('fileInput').click()" title="Upload Photo">
-                        <span>📁</span>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <path d="M22 19a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h5l2 3h9a2 2 0 0 1 2 2z"></path>
+                        </svg>
                     </button>
 
                     <button class="brutal-btn btn-camera" id="cameraBtn" onclick="toggleCamera()">
                         <div class="camera-btn-inner" id="cameraBtnInner">
-                            <span>📷</span>
+                            <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                                <path d="M23 19a2 2 0 0 1-2 2H3a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h4l2-3h6l2 3h4a2 2 0 0 1 2 2z"/>
+                                <circle cx="12" cy="13" r="4"/>
+                            </svg>
                         </div>
                     </button>
 
                     <button class="brutal-btn btn-square btn-action" id="analyzeBtn" onclick="captureAndAnalyze()"
                         disabled title="Analyze">
-                        <span>⚡</span>
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                            <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                        </svg>
                     </button>
                 </div>
             </div>
