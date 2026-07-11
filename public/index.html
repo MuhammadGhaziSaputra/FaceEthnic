@@ -1,204 +1,197 @@
 <!DOCTYPE html>
 <html lang="id">
-
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="description" content="Real-time ethnicity/race detection from face using AI camera analysis">
-    <title>FaceEthnic AI</title>
+    <meta name="description" content="FaceEthnic AI - Real-time ethnicity detection">
+    <title>FaceEthnic AI - Welcome</title>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link
-        href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap"
-        rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;600;700&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="style.css">
+    <style>
+        .landing-container {
+            max-width: 900px;
+            margin: 0 auto;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+        
+        .hero-card {
+            text-align: center;
+            margin-bottom: 24px;
+            background: var(--c-cyan-light);
+        }
+
+        .hero-content {
+            padding: 60px 20px;
+            background: var(--white);
+            border-top: var(--border-w) solid var(--black);
+        }
+
+        .hero-emoji {
+            font-size: 5.5rem;
+            margin-bottom: 10px;
+            filter: drop-shadow(4px 4px 0 var(--black));
+        }
+        
+        .hero-title {
+            font-size: 3.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: -2px;
+            text-shadow: 4px 4px 0 var(--c-cyan);
+            margin-bottom: 16px;
+        }
+        
+        .hero-subtitle {
+            font-size: 1.25rem;
+            font-weight: 600;
+            margin-bottom: 40px;
+            line-height: 1.6;
+            color: var(--c-teal-dark);
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+            text-align: left;
+        }
+
+        .feature-card {
+            padding: 24px;
+            background: var(--c-bg);
+            border: var(--border-w) solid var(--black);
+            border-radius: var(--border-radius);
+            box-shadow: 4px 4px 0 var(--black);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .feature-card:hover {
+            transform: translate(-4px, -4px);
+            box-shadow: 8px 8px 0 var(--black);
+            background: var(--white);
+        }
+
+        .feature-icon {
+            font-size: 2.5rem;
+            margin-bottom: 16px;
+            filter: drop-shadow(2px 2px 0 var(--black));
+        }
+
+        .feature-title {
+            font-size: 1.2rem;
+            font-weight: 700;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .feature-desc {
+            font-size: 0.95rem;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+
+        .cta-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            background: var(--yellow);
+            color: var(--black);
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            text-decoration: none;
+            padding: 20px 48px;
+            border: var(--border-w) solid var(--black);
+            border-radius: 50px;
+            box-shadow: 6px 6px 0 var(--black);
+            transition: all 0.15s;
+        }
+
+        .cta-btn:hover {
+            transform: translate(-2px, -2px);
+            box-shadow: 8px 8px 0 var(--black);
+            background: #fef08a;
+        }
+
+        .cta-btn:active {
+            transform: translate(6px, 6px);
+            box-shadow: 0 0 0 var(--black);
+        }
+        
+        .footer-info {
+            text-align: center;
+            margin-top: 20px;
+            font-family: var(--font-mono);
+            font-size: 0.9rem;
+            font-weight: 700;
+            color: var(--c-teal-dark);
+        }
+
+        @media (max-width: 600px) {
+            .hero-title { font-size: 2.2rem; }
+            .hero-content { padding: 40px 16px; }
+            .cta-btn { font-size: 1.2rem; padding: 16px 24px; width: 100%; border-radius: var(--border-radius); }
+            .hero-emoji { font-size: 4rem; }
+        }
+    </style>
 </head>
-
 <body>
-    <div class="app-wrapper">
+    <div class="landing-container">
+        <div class="brutal-card hero-card">
+            <div class="card-header bg-cyan" style="justify-content: flex-start;">
+                <span class="dot"></span><span class="dot"></span><span class="dot"></span>
+                <strong>FACE_ETHNIC_AI_SYSTEM</strong>
+            </div>
+            
+            <div class="hero-content">
+                <div class="hero-emoji">🌍</div>
+                <h1 class="hero-title">FaceEthnic.AI</h1>
+                <p class="hero-subtitle">
+                    Advanced Real-Time Ethnicity & Ancestry Detection.
+                    Powered by cutting-edge Vision Instruct AI technology to meticulously analyze facial features.
+                </p>
 
-        <div class="app-container">
-
-            <header class="header">
-                <div class="header-left">
-                    <div class="logo-icon">🌍</div>
-                    <div>
-                        <h1 class="logo-title">FaceEthnic.AI</h1>
+                <div class="features-grid">
+                    <div class="feature-card">
+                        <div class="feature-icon">⚡</div>
+                        <h3 class="feature-title">Real-Time Scan</h3>
+                        <p class="feature-desc">Scan directly from your camera with ultra-fast AI processing and high precision.</p>
                     </div>
-                </div>
-                <div class="header-right">
-                    <div class="status-badge" id="statusBadge">
-                        <div class="status-dot" id="statusDot"></div>
-                        <span id="statusText">Offline</span>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔬</div>
+                        <h3 class="feature-title">Deep Analysis</h3>
+                        <p class="feature-desc">Get a comprehensive breakdown of your ethnic origins up to the exact percentage.</p>
                     </div>
-                </div>
-            </header>
-
-
-            <main class="main-body">
-
-                <div class="camera-column">
-
-                    <div class="brutal-card camera-card">
-                        <div class="card-header">
-                            <span class="dot"></span><span class="dot"></span><span class="dot"></span>
-                            <strong>CAMERA_VIEW</strong>
-                        </div>
-                        <div class="camera-viewport" id="cameraViewport">
-                            <video id="video" autoplay playsinline></video>
-                            <img id="uploadedImage"
-                                style="display: none; width: 100%; height: 100%; object-fit: cover;">
-                            <canvas id="overlay" class="overlay-canvas"></canvas>
-
-
-                            <div class="face-guide" id="faceGuide">
-                                <svg viewBox="0 0 200 260" fill="none" xmlns="http://www.w3.org/2000/svg">
-                                    <ellipse cx="100" cy="130" rx="75" ry="100" stroke="#000" stroke-width="4"
-                                        stroke-dasharray="12 10" />
-                                </svg>
-                            </div>
-
-
-                            <div class="scan-overlay" id="scanOverlay">
-                                <div class="scan-beam"></div>
-                            </div>
-
-
-                            <div class="no-camera" id="noCameraState">
-                                <div class="no-camera-icon">📷</div>
-                                <p>Akses kamera atau upload foto</p>
-                            </div>
-                        </div>
-                        <canvas id="captureCanvas" style="display:none;"></canvas>
-                    </div>
-
-
-                    <div class="brutal-card auto-bar" id="autoBar" style="display: none;">
-                        <div class="auto-toggle-row">
-                            <label class="auto-label">Auto Analyze Mode</label>
-                            <label class="toggle-switch">
-                                <input type="checkbox" id="autoToggle" onchange="toggleAutoAnalyze()">
-                                <span class="toggle-slider"></span>
-                            </label>
-                        </div>
-                        <div class="interval-row">
-                            <span class="interval-label">Interval</span>
-                            <input type="range" id="intervalSlider" min="2" max="10" value="3" class="brutal-slider">
-                            <span class="interval-value brutal-badge" id="intervalValue">3s</span>
-                        </div>
+                    <div class="feature-card">
+                        <div class="feature-icon">🔒</div>
+                        <h3 class="feature-title">Privacy First</h3>
+                        <p class="feature-desc">Images are processed securely on the fly and are never stored on our servers.</p>
                     </div>
                 </div>
 
-
-                <div class="brutal-card results-section" id="resultsSection">
-                    <div class="card-header bg-cyan">
-                        <strong>ANALYSIS_RESULT</strong>
-                    </div>
-
-
-                    <div class="results-placeholder" id="resultsPlaceholder">
-                        <div class="placeholder-emoji">🤖</div>
-                        <p>Nyalakan kamera lalu klik tombol petir untuk memulai pemindaian etnis!</p>
-                    </div>
-
-
-                    <div class="results-list" id="resultsList" style="display: none;">
-
-                        <div class="results-header">
-                            <h2>Detected Origins</h2>
-                            <div class="brutal-badge scan-counter">
-                                Scan #<span id="scanCount">0</span>
-                            </div>
-                        </div>
-
-
-                        <div class="ethnicity-items" id="ethnicityItems">
-
-                        </div>
-
-
-                        <div class="confidence-row" id="confidenceRow" style="display: none;">
-                            <span class="confidence-label">Confidence Score:</span>
-                            <span class="confidence-value brutal-badge" id="confidenceValue">—</span>
-                        </div>
-                    </div>
-                </div>
-            </main>
-
-
-            <div class="action-bar-wrapper">
-                <div class="action-bar brutal-card">
-                    <button class="brutal-btn btn-square" id="historyBtn" onclick="toggleHistory()" title="History">
-                        <span>🕒</span>
-                    </button>
-
-                    <input type="file" id="fileInput" accept="image/*" style="display: none;"
-                        onchange="handleFileUpload(event)">
-                    <button class="brutal-btn btn-square" id="uploadBtn"
-                        onclick="document.getElementById('fileInput').click()" title="Upload Photo">
-                        <span>📁</span>
-                    </button>
-
-                    <button class="brutal-btn btn-camera" id="cameraBtn" onclick="toggleCamera()">
-                        <div class="camera-btn-inner" id="cameraBtnInner">
-                            <span>📷</span>
-                        </div>
-                    </button>
-
-                    <button class="brutal-btn btn-square btn-action" id="analyzeBtn" onclick="captureAndAnalyze()"
-                        disabled title="Analyze">
-                        <span>⚡</span>
-                    </button>
-                </div>
+                <a href="scan.html" class="cta-btn">
+                    <span>Mulai Scan Sekarang</span>
+                    <span style="font-size: 1.8rem; line-height: 1;">➔</span>
+                </a>
             </div>
         </div>
-
-
-        <div class="history-modal" id="historyModal">
-            <div class="history-panel brutal-card">
-                <div class="history-header card-header bg-teal">
-                    <h3>SCAN_HISTORY</h3>
-                    <button class="history-close brutal-btn btn-small" onclick="toggleHistory()">
-                        ✖
-                    </button>
-                </div>
-                <div class="history-body" id="historyBody">
-                    <div class="history-empty">
-                        <p>Belum ada history pemindaian.</p>
-                    </div>
-                </div>
-                <div class="history-footer">
-                    <button class="brutal-btn btn-full btn-red" onclick="clearHistory()">Clear History</button>
-                </div>
-            </div>
-        </div>
-
-
-        <div class="toast-container" id="toastContainer"></div>
-
-        <div class="error-modal" id="errorModal">
-            <div class="error-panel brutal-card">
-                <div class="card-header" style="background: var(--red); color: white;">
-                    <span class="dot" style="background: white;"></span>
-                    <span class="dot" style="background: white;"></span>
-                    <span class="dot" style="background: white;"></span>
-                    <h3 style="margin-left: 8px; font-size: 1rem;">NO_FACE_DETECTED</h3>
-                </div>
-                <div class="error-body">
-                    <div class="error-icon">🫥</div>
-                    <h2 class="error-title">Wajah Tidak Ditemukan</h2>
-                    <p class="error-desc">Pastikan wajah terlihat jelas di area pemindaian atau pada foto yang diunggah.</p>
-                </div>
-                <div class="history-footer">
-                    <button class="brutal-btn btn-full" style="background: var(--yellow);" onclick="closeErrorModal()">COBA LAGI</button>
-                </div>
+        
+        <div class="footer-info">
+            <div class="brutal-badge" style="display: inline-block; background: var(--white);">
+                v1.0.0 // POWERED BY TELKOM AI VISION INSTRUCT
             </div>
         </div>
     </div>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.13/cropper.min.js"></script>
-    <script src="app.js"></script>
 </body>
-
 </html>
